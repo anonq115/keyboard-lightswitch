@@ -1,0 +1,103 @@
+
+    <style>
+        /* Default light theme styles */
+        body {
+            font-family: Arial, sans-serif;
+            transition: background-color 0.3s;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            user-select: none; /* Disable text selection */
+        }
+
+        .plate {
+            cursor: pointer;
+            filter: drop-shadow(4px 4px 10px rgba(0, 0, 0, 0.2));
+        }
+
+        .keycap, .inner-square {
+            transition: transform 0.1s;
+        }
+
+        .plate:active .keycap, .plate:active .inner-square {
+            transform: translateY(4px);
+        }
+
+        .letter {
+            font-family: 'Inter', sans-serif;
+            font-size: 24px;
+            fill: #fff;
+            transition: fill 0.3s;
+            text-anchor: middle;
+            alignment-baseline: central;
+            pointer-events: none; /* Prevents the letter from being selected or highlighted */
+            transition: transform 0.1s;
+        }
+
+        .plate:active .letter {
+            transform: translateY(4px);
+        }
+
+        /* Dark theme styles */
+        body[data-theme="dark"] {
+            background-color: #333;
+            color: #f4f4f4;
+        }
+
+        .plate[data-theme="dark"] .switch-plate {
+            fill: #000; /* Black color for dark mode */
+        }
+
+        body[data-theme="dark"] .letter {
+            fill: #00ff00; /* Glowing green color */
+        }
+    </style>
+</head>
+<body>
+    <svg class="plate" width="320" height="500" onclick="toggleTheme()" xmlns="http://www.w3.org/2000/svg">
+        <!-- Light switch plate outline -->
+        <rect class="switch-plate" x="35" y="50" width="250" height="400" rx="10" ry="10" fill="rgba(255, 255, 255, 0.25)" stroke="#333" stroke-width="4"/> <!--fill with white then transparency which matches the color of the background  with t -->
+        <!-- Screws on the top and bottom of the plate -->
+        <circle cx="160" cy="70" r="5" fill="#555"/>
+        <circle cx="160" cy="430" r="5" fill="#555"/>
+        <!-- Keycap shape with gradient for depth -->
+        <rect class="keycap" x="110" y="185" width="100" height="100" rx="10" ry="10" fill="url(#keycapGradient)" stroke="#111" stroke-width="1"/>
+        <!-- Inner square gradient effect -->
+        <rect class="inner-square" x="125" y="200" width="70" height="70" fill="url(#sideGradient)" stroke="none"/>
+        <rect class="inner-square" x="125" y="200" width="70" height="70" fill="url(#bottomGradient)" stroke="none"/>
+        <!-- Inner square outline -->
+        <rect class="inner-square" x="125" y="200" width="70" height="70" rx="3" ry="3" fill="none" stroke="#333" stroke-width="4"/>
+        <!-- Glow letter 'L' -->
+        <text class="letter" x="160" y="250">L</text>
+        <defs>
+            <radialGradient id="keycapGradient" cx="0.5" cy="0.5" r="0.6" spreadMethod="pad">
+                <stop offset="0%" style="stop-color:#000; stop-opacity:1" />
+                <stop offset="100%" style="stop-color:#222; stop-opacity:1" />
+            </radialGradient>
+            <linearGradient id="sideGradient" x1="100%" y1="0%" x2="50%" y2="50%">
+                <stop offset="0%" style="stop-color:#555; stop-opacity:1" />
+                <stop offset="100%" style="stop-color:#222; stop-opacity:1" />
+            </linearGradient>
+            <linearGradient id="bottomGradient" x1="0%" y1="100%" x2="50%" y2="50%">
+                <stop offset="0%" style="stop-color:#555; stop-opacity:1" />
+                <stop offset="100%" style="stop-color:#222; stop-opacity:1" />
+            </linearGradient>
+        </defs>
+    </svg>
+    <script>
+        function toggleTheme() {
+            const currentTheme = document.body.getAttribute('data-theme');
+            if (currentTheme === 'dark') {
+                document.body.setAttribute('data-theme', 'light');
+            } else {
+                document.body.setAttribute('data-theme', 'dark');
+            }
+        }
+    </script>
+</body>
+</html>
+
